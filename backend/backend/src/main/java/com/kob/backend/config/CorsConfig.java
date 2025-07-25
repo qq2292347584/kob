@@ -1,6 +1,9 @@
 package com.kob.backend.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Configuration
-public class CorsConfig implements Filter {
+@EnableWebMvc
+public class CorsConfig implements Filter, WebMvcConfigurer {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
@@ -31,7 +35,15 @@ public class CorsConfig implements Filter {
 
         chain.doFilter(request, response);
     }
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")  // 允许所有路径
+                .allowedOrigins("http://localhost:8080")  // 允许的前端地址
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // 允许的方法
+                .allowedHeaders("*")  // 允许所有头
+                .allowCredentials(true)  // 允许凭证
+                .maxAge(3600);  // 预检请求缓存时间
+    }
     @Override
     public void init(FilterConfig filterConfig) {
 

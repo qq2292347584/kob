@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
-
+import ModuleUser from './user'
+// vuex的使用
 export default createStore({
   state: {
   },
@@ -10,5 +11,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    user: ModuleUser,
   }
 })

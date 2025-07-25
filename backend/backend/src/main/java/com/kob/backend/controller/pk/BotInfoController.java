@@ -11,4 +11,5 @@ public class BotInfoController {
     public String getBotInfo() {
         return "this is getbotinfo.";
     }
+
 }
