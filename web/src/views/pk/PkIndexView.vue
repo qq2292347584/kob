@@ -23,6 +23,7 @@ export default {
     setup() {
         const store = useStore();
         const socketUrl = `ws://127.0.0.1:3000/websocket/${store.state.user.token}/`;
+        store.commit("updateLoser", "none");
 
         let socket = null;
         //当组件进行挂载时建立连接
